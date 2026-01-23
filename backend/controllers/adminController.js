@@ -56,7 +56,9 @@ const registerAdmin= async (req,res)=>{
 
 
 const loginAdmin= async (req,res)=>{
-    const {name,id,password}= req.body
+
+    try {
+          const {name,id,password}= req.body
     if(!name || !id || !password){
         return res.json({
             success:false,
@@ -74,6 +76,30 @@ const loginAdmin= async (req,res)=>{
 
     const isMatch = await bcrypt.compare(password,admin.password)
     if(isMatch){
-        co
-    }
+        const token = jwt.sign({id:admin._id},process.env.JWT_SECRET)
+    
+    res.json({
+        success:true,
+        token,
+        admin
+    })
 }
+    else{
+        return res.json({
+            success:false,
+            message:"invalid credentials"
+        })
+    }
+    } catch (error) {
+        console.log(error);
+        res.json({
+            success:false,
+            message:error.message
+        })
+    }
+  
+}
+
+
+
+

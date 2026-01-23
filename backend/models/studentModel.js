@@ -14,6 +14,14 @@ const studentSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    instituteId:{
+        type:String,
+        required:true,
+    },
+    hostelNo:{
+        type:String,
+        required:true,
+    },
     email:{
          type: String,
         // required:true,
